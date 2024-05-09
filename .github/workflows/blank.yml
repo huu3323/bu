@@ -33,4 +33,4 @@ jobs:
       with:
         to: ${{ secrets.TELEGRAM_CHAT_ID }}
         token: ${{ secrets.TELEGRAM_API_TOKEN }}
-        text: "脚本已执行，请查看微信。"
+        text: "脚本已执行，请查看wx"
