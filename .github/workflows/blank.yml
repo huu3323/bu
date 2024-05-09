@@ -28,9 +28,9 @@ jobs:
       run: python py.py # 根据你的脚本文件名修改这里
 
     - name: Send Telegram Notification
-      if: success()
+      if: always()  # 无论成功还是失败都发送通知
       uses: appleboy/telegram-action@master
       with:
         to: ${{ secrets.TELEGRAM_CHAT_ID }}
         token: ${{ secrets.TELEGRAM_API_TOKEN }}
-        text: "Python script has been successfully executed!"
+        text: "Python script has been executed."
