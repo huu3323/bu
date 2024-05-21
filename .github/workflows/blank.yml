@@ -27,10 +27,10 @@ jobs:
         ACCOUNTS_AND_PASSWORDS: ${{ secrets.ACCOUNTS_AND_PASSWORDS }}
       run: python py.py # 根据你的脚本文件名修改这里
 
-    - name: Send Telegram Notification
+    - name: 发送 Telegram 通知
       if: always()  # 无论成功还是失败都发送通知
       uses: appleboy/telegram-action@master
       with:
-        to: ${{ secrets.TELEGRAM_CHAT_ID }}
-        token: ${{ secrets.TELEGRAM_API_TOKEN }}
-        text: "脚本已执行，请查看wx"
+         到: ${{ secrets.TELEGRAM_CHAT_ID }}
+         token: ${{ secrets.TELEGRAM_API_TOKEN }}
+         text: "脚本执行成功啦，请查看微信"
