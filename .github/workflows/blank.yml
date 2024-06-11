@@ -2,7 +2,7 @@ name: Run Your Python Script
 
 on:
   schedule:
-    - cron: '0 10 * * *'  # 在UTC时间中午12点运行
+    - cron: '0 11 * * *'  # 在UTC时间上午11点运行
 
 jobs:
   build:
@@ -26,11 +26,3 @@ jobs:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         ACCOUNTS_AND_PASSWORDS: ${{ secrets.ACCOUNTS_AND_PASSWORDS }}
       run: python py.py # 根据你的脚本文件名修改这里
-
-    - name: 发送 Telegram 通知
-      if: always()  # 无论成功还是失败都发送通知
-      uses: appleboy/telegram-action@master
-      with:
-         到: ${{ secrets.TELEGRAM_CHAT_ID }}
-         token: ${{ secrets.TELEGRAM_API_TOKEN }}
-         text: "Python script has been executed."
