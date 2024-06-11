@@ -21,8 +21,19 @@ jobs:
       run: pip install -r requirements.txt  # 根据你的需求修改 requirements.txt 文件路径
 
     - name: Run Python script
+      id: run_python
       env:
         TELEGRAM_API_TOKEN: ${{ secrets.TELEGRAM_API_TOKEN }}
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         ACCOUNTS_AND_PASSWORDS: ${{ secrets.ACCOUNTS_AND_PASSWORDS }}
-      run: python py.py # 根据你的脚本文件名修改这里
+      run: |
+        python py.py  # 根据你的脚本文件名修改这里
+        echo "::set-output name=ran_successfully::true"  # 标记成功执行
+
+    - name: Notify on Telegram if successful
+      if: steps.run_python.outputs.ran_successfully == 'true'
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_CHAT_ID }}
+        token: ${{ secrets.TELEGRAM_API_TOKEN }}
+        message: "Python script ran successfully!"
