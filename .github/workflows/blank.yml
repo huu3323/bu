@@ -3,7 +3,9 @@ name: Run Your Python Script
 on:
   schedule:
     - cron: '0 11 * * *'  # 在UTC时间上午11点运行
-
+  push :
+         分支 :
+        - main
 jobs:
   build:
     runs-on: ubuntu-latest
