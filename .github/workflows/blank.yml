@@ -3,9 +3,10 @@ name: Run Your Python Script
 on:
   schedule:
     - cron: '0 3 * * *'  # 在UTC时间上午11点运行
-  push :
-         branches: 
-          - main
+  push:
+    branches: 
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,10 +31,10 @@ jobs:
         ACCOUNTS_AND_PASSWORDS: ${{ secrets.ACCOUNTS_AND_PASSWORDS }}
       run: |
         python py.py  # 根据你的脚本文件名修改这里
-        echo "::set-output name=ran_successfully::true"  # 标记成功执行
+        echo "ran_successfully=true" >> $GITHUB_ENV  # 标记成功执行
 
     - name: Notify on Telegram if successful
-      if: steps.run_python.outputs.ran_successfully == 'true'
+      if: env.ran_successfully == 'true'
       uses: appleboy/telegram-action@master
       with:
         to: ${{ secrets.TELEGRAM_CHAT_ID }}
